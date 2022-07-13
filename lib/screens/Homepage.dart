@@ -54,7 +54,7 @@ class _HomePage extends State<HomePage> {
                 currentAccountPicture: CircleAvatar(
                   backgroundImage: widget.ud.avatar != ''
                       ? NetworkImage(widget.ud.avatar) as ImageProvider
-                      : AssetImage('image/titleBackgroundImage.png'),
+                      : AssetImage('image/profileImage.png'),
                 backgroundColor: Colors.white,),
                 accountName: Text(widget.ud.name),
                 accountEmail: Text(widget.ud.email),

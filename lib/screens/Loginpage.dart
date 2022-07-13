@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:soccer/RestApi.dart';
+import 'package:soccer/screens/Homepage.dart';
+
+import '../model/User.dart';
 
 class LoginPage extends StatelessWidget {
-  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   LoginPage({Key? key}) : super(key: key);
 
@@ -26,10 +30,10 @@ class LoginPage extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(10),
                   child: TextField(
-                    controller: nameController,
+                    controller: emailController,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'User Name',
+                      labelText: 'Email',
                     ),
                   ),
                 ),
@@ -55,9 +59,12 @@ class LoginPage extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: ElevatedButton(
                       child: const Text('Login'),
-                      onPressed: () {
-                        print(nameController.text);
-                        print(passwordController.text);
+                      onPressed: () async {
+                        UserData ud = await RestApi().getUser(emailController.text, passwordController.text);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomePage(ud: ud)),
+                        );
                       },
                     )
                 ),
@@ -66,7 +73,7 @@ class LoginPage extends StatelessWidget {
                     const Text('Does not have account?'),
                     TextButton(
                       child: const Text(
-                        'Sign in',
+                        'Sign Up',
                         style: TextStyle(fontSize: 20),
                       ),
                       onPressed: () {

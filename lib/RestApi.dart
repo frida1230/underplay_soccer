@@ -1,6 +1,5 @@
 import 'dart:convert';
 import "package:http/http.dart" as http;
-import 'package:intl/intl.dart';
 import 'model/User.dart';
 
 class RestApi {
@@ -11,20 +10,7 @@ class RestApi {
   Map<String, String> headers = {
     'Content-type': 'application/json',
     'Access-Control-Request-Headers': '*',
-    //'api-key':
-    //'0xs3Of0dzGEmXKZLvQ6gGnSbMntL4clyMCZSeEXS8AACRhi0ipzbshthP2QcNtfG'
   };
-
-  Map<String, String> cookies = {};
-
-  Future<dynamic> goodiezGet(String url) async {
-    print('get() url: $url');
-    http.Response response =
-    await http.get(Uri.encodeFull(url) as Uri, headers: headers);
-    final int statusCode = response.statusCode;
-    if (statusCode < 200 || statusCode > 400) {}
-    return json.decode(utf8.decode(response.bodyBytes));
-  }
 
   Future<void> SignUp(String email, String name, String phone, String avatar) async {
     Map param = {
@@ -32,7 +18,6 @@ class RestApi {
       "avatar": avatar,
       "name": name,
       "phone": phone,
-      "created": DateFormat('yyyy-MM-dd').format(DateTime.now())
     };
     final String encodedData = convertJson(param);
     final response = await http.post(
@@ -43,15 +28,17 @@ class RestApi {
     );
   }
 
-  Future<UserData> getUser(String email) async {
+  Future<UserData> getUser(String email, String pwd) async {
     Map param = {
       "email": email,
+      "pwd": pwd
     };
+
     final String encodedData = convertJson(param);
 
     final response = await http.post(
       Uri.parse(
-          "https://q776bjvfe5.execute-api.ap-northeast-2.amazonaws.com/underplay/getUser"),
+          "https://q776bjvfe5.execute-api.ap-northeast-2.amazonaws.com/underplay/getuser"),
       body: encodedData,
       headers: headers,
     );
@@ -59,11 +46,12 @@ class RestApi {
     var parsed = jsonDecode(response.body);
 
     UserData ud = UserData(
-        email: parsed['Item']['email']['S'],
-        avatar: parsed['Item']['avatar']['S'],
-        phone: parsed['Item']['phone']['S'],
-        name: parsed['Item']['name']['S'],
-        created: parsed['Item']['created']['S']);
+        email: parsed[0]['email'] as String,
+        avatar: parsed[0]['avatar'] as String,
+        phone: parsed[0]['phone'] as String,
+        name: parsed[0]['name'] as String,
+        pwd: parsed[0]['pwd'] as String
+    );
 
     return ud;
   }

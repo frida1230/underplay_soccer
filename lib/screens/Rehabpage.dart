@@ -106,7 +106,7 @@ class _rehabpageState extends State<Rehabpage> {
                       child: Row(
                         children:[
                           SizedBox(
-                            width: 320,
+                            width: 270,
                             height: 55,
                             child: TextField(
                               decoration: InputDecoration(
@@ -115,11 +115,7 @@ class _rehabpageState extends State<Rehabpage> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          SizedBox(
-                            height: 55,
+                          Expanded(
                               child: ElevatedButton(
                                 child: const Text('저장'),
                                 style: ButtonStyle(
@@ -128,11 +124,9 @@ class _rehabpageState extends State<Rehabpage> {
                                 onPressed: (){},
                               ),
                           ),
-
                         ],
                       ),
                     ),
-
                 ]
               ),
             ],
