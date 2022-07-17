@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:soccer/RestApi.dart';
 import 'package:soccer/screens/Homepage.dart';
+import 'package:soccer/screens/SignUppage.dart';
 
 import '../model/User.dart';
+import 'Widget/LoginTF.dart';
 
 class LoginPage extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
@@ -27,26 +29,11 @@ class LoginPage extends StatelessWidget {
                     fit: BoxFit.fill,
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  child: TextField(
-                    controller: emailController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Email',
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                  child: TextField(
-                    obscureText: true,
-                    controller: passwordController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Password',
-                    ),
-                  ),
+                Column(
+                  children: [
+                    LoginTF(label: "Email", tfcontroller: emailController),
+                    LoginTF(label: "Password",obsureText: true, tfcontroller: passwordController),
+                  ],
                 ),
                 TextButton(
                   onPressed: () {
@@ -54,19 +41,40 @@ class LoginPage extends StatelessWidget {
                   },
                   child: const Text('Forgot Password',),
                 ),
-                Container(
-                    height: 50,
-                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: ElevatedButton(
-                      child: const Text('Login'),
-                      onPressed: () async {
-                        UserData ud = await RestApi().getUser(emailController.text, passwordController.text);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => HomePage(ud: ud)),
-                        );
-                      },
-                    )
+                MaterialButton(
+                  minWidth: double.infinity,
+                  height:60,
+                  onPressed: () async {
+                    showDialog(context: context, builder: (BuildContext context){
+                      return AlertDialog(
+                        backgroundColor: Colors.transparent,
+                        content: Container(
+                            width: 100,
+                            height: 100,
+                            alignment: Alignment.topCenter,
+                            margin: EdgeInsets.only(top: 20),
+                            child: CircularProgressIndicator(
+                              backgroundColor: Colors.transparent,
+                              color: Colors.blue,
+                            )
+                        ),
+                      );
+                    });
+                    UserData ud = await RestApi().getUser(emailController.text, passwordController.text);
+                    Navigator.of(context, rootNavigator: true).pop();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage(ud: ud)),
+                    );
+                  },
+                  color: Colors.redAccent,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40)
+                  ),
+                  child: Text("Login",style: TextStyle(
+                    fontWeight: FontWeight.w600,fontSize: 16,
+
+                  ),),
                 ),
                 Row(
                   children: <Widget>[
@@ -77,7 +85,10 @@ class LoginPage extends StatelessWidget {
                         style: TextStyle(fontSize: 20),
                       ),
                       onPressed: () {
-                        //signup screen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignupPage()),
+                        );
                       },
                     )
                   ],
