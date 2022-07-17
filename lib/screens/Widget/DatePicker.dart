@@ -9,8 +9,8 @@ class DatePicker extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 520.w,
-      height: 246.h,
-      margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
+      height: 145.h,
+      margin: EdgeInsets.fromLTRB(0, 15.r, 0, 15.r),
       child: DateTimeFormField(
         dateTextStyle: TextStyle(fontSize: 15),
         decoration: const InputDecoration(

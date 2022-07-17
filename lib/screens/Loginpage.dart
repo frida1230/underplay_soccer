@@ -24,8 +24,8 @@ class LoginPage extends StatelessWidget {
                   alignment: Alignment.center,
                   padding: const EdgeInsets.all(10),
                   child: Image.asset('image/underplayLogo.png',
-                    width: 400.w,
-                    height: 400.h,
+                    width: 500.w,
+                    height: 500.h,
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -43,14 +43,14 @@ class LoginPage extends StatelessWidget {
                 ),
                 MaterialButton(
                   minWidth: double.infinity,
-                  height:60,
+                  height:195.h,
                   onPressed: () async {
                     showDialog(context: context, builder: (BuildContext context){
                       return AlertDialog(
                         backgroundColor: Colors.transparent,
                         content: Container(
-                            width: 100,
-                            height: 100,
+                            width: 325.w,
+                            height: 325.h,
                             alignment: Alignment.topCenter,
                             margin: EdgeInsets.only(top: 20),
                             child: CircularProgressIndicator(

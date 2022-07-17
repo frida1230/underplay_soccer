@@ -90,7 +90,7 @@ class _HomePage extends State<HomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context)=> SelfTrainingpage()),
+                  MaterialPageRoute(builder: (context)=> SelfTrainingpage(title: '개인 훈련',)),
                 );
               },
               trailing: const Icon(Icons.add),
@@ -104,7 +104,7 @@ class _HomePage extends State<HomePage> {
               onTap: () {
                 Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context)=> Matchpage()),
+                    MaterialPageRoute(builder: (context)=> Matchpage(title: '매치',)),
                 );
               },
               trailing: const Icon(Icons.add),
@@ -118,7 +118,7 @@ class _HomePage extends State<HomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Rehabpage()),
+                  MaterialPageRoute(builder: (context) => Rehabpage(title: '재활훈련',)),
                 );
               },
               trailing: const Icon(Icons.add),
