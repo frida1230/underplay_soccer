@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 
@@ -31,9 +32,9 @@ class _PaincheckboxState extends State<Paincheckbox> {
                 });
               }
           ),
-          Container(
-            height: 30,
-            width: 100,
+          SizedBox(
+            height: 97.h,
+            width: 325.w,
             child: TextField(
               readOnly: !_isChecked,
               decoration: InputDecoration(
@@ -43,8 +44,8 @@ class _PaincheckboxState extends State<Paincheckbox> {
             ),
           ),
           SizedBox(
-            height: 30,
-            width: 100,
+            height: 97.h,
+            width: 325.w,
             child: NumberPicker(
               value: _currentValue,
               textStyle: const TextStyle(color: Colors.green,fontSize: 15,),

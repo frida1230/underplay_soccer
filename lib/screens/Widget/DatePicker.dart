@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:date_field/date_field.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DatePicker extends StatelessWidget {
   const DatePicker({Key? key}) : super(key: key);
@@ -7,8 +8,8 @@ class DatePicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 160,
-      height: 45,
+      width: 520.w,
+      height: 246.h,
       margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
       child: DateTimeFormField(
         dateTextStyle: TextStyle(fontSize: 15),

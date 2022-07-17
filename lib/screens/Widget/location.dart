@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class location extends StatelessWidget {
   const location({Key? key}) : super(key: key);
@@ -6,7 +7,7 @@ class location extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 40,
+      height: 130.h,
       child: TextField(
         decoration: InputDecoration(
           border: OutlineInputBorder(),

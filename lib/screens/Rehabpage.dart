@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'Widget/DatePicker.dart';
 import 'Widget/Paincheckbox.dart';
 import 'Widget/location.dart';
@@ -79,7 +80,7 @@ class _rehabpageState extends State<Rehabpage> {
                       height: 5,
                     ),
                     Container(
-                      height: 55,
+                      height: 55.h,
                       child: TextField(
                         maxLines: 5,
                         decoration: InputDecoration(

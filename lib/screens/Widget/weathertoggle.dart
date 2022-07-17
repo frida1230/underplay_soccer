@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class togglebutton extends StatefulWidget {
   const togglebutton({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class _togglebuttonState extends State<togglebutton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 45,
+      height: 145.h,
       child: ToggleButtons(
         fillColor: Colors.indigo.shade900,
         children: const <Widget>[
