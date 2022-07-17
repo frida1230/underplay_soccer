@@ -69,16 +69,6 @@ class _HomePage extends State<HomePage> {
             ),
             ListTile(
               leading: Icon(
-                Icons.home,
-                color: Colors.grey[850]),
-              title: const Text('Home'),
-              onTap: ()=>{
-                Navigator.pop(context)
-              },
-              trailing: const Icon(Icons.add),
-            ),
-            ListTile(
-              leading: Icon(
                 Icons.people_alt_sharp,
                 color: Colors.grey[850],
               ),
@@ -170,15 +160,6 @@ class _HomePage extends State<HomePage> {
               ),
             ),
         ),
-      bottomNavigationBar: BottomAppBar(
-        child: Container(
-            height: 80,
-            child: const Text("광고",
-              style: TextStyle(fontSize: 30),
-              textAlign: TextAlign.center,
-
-            ),
-        color: Colors.indigoAccent), )
     );
   }
 }
