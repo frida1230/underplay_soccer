@@ -75,6 +75,7 @@ class LoginPage extends StatelessWidget {
                     fontWeight: FontWeight.w600,fontSize: 16,
 
                   ),),
+
                 ),
                 Row(
                   children: <Widget>[

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'Widget/DatePicker.dart';
 import 'Widget/location.dart';
 import 'Widget/weathertoggle.dart';
@@ -40,12 +41,12 @@ class _SelfTrainingpageState extends State<SelfTrainingpage> {
                     const location(),
 
                     SizedBox(
-                      height: 5,
+                      height: 5.h,
                     ),
                     Container(
                       padding: const EdgeInsets.all(5),
-                      width: 375,
-                      height: 500,
+                      width: 375.w,
+                      height: 500.h,
                       decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage('image/footballplayground.png'),

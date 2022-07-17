@@ -8,8 +8,8 @@ class Matchground extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
-      width:1100.w,
-      height: 1800.h,
+      width:1110.w,
+      height: 1650.h,
       decoration: const BoxDecoration(
         image: DecorationImage(
           image:AssetImage('image/MatchField.png'),
@@ -32,7 +32,7 @@ class Matchground extends StatelessWidget {
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Colors.redAccent,
-                            width:5,
+                            width:5.w,
                             style:BorderStyle.solid,),
                         ),
                         filled: true,
@@ -41,22 +41,21 @@ class Matchground extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 384.w,
+                    width: 400.w,
                     height: 40.h,
                   ),
                   SizedBox(
                     width: 380.w,
                     height: 120.h,
-                    child:const TextField(
+                    child:TextField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: '매치포지션',
                         labelStyle:TextStyle(fontSize: 18,fontWeight:FontWeight.w700),
                         enabledBorder: OutlineInputBorder(
-
                           borderSide: BorderSide(
                             color: Colors.redAccent,
-                            width:5,
+                            width:5.w,
                             style:BorderStyle.solid,),
                         ),
                         filled: true,
@@ -68,7 +67,7 @@ class Matchground extends StatelessWidget {
             ),
             SizedBox(
               width: 375.w,
-              height: 500.h,
+              height: 1320.h,
             ),
             Row(
                 children: [
@@ -83,7 +82,7 @@ class Matchground extends StatelessWidget {
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Colors.blueAccent,
-                            width:5,
+                            width:5.w,
                             style:BorderStyle.solid,),
                         ),
                         filled: true,
@@ -92,7 +91,7 @@ class Matchground extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 384.w,
+                    width: 400.w,
                     height: 40.h,
                   ),
                   SizedBox(
@@ -104,10 +103,9 @@ class Matchground extends StatelessWidget {
                         labelText: '매치포지션',
                         labelStyle:TextStyle(fontSize: 18,fontWeight:FontWeight.w700),
                         enabledBorder: OutlineInputBorder(
-
                           borderSide: BorderSide(
                             color: Colors.blueAccent,
-                            width:5,
+                            width:5.w,
                             style:BorderStyle.solid,),
                         ),
                         filled: true,

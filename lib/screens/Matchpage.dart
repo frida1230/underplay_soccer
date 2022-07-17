@@ -37,7 +37,7 @@ class _Matchpage extends State<Matchpage> {
                     Row(
                       children: [
                         SizedBox(
-                          height: 45,
+                          height: 45.h,
                           child: ElevatedButton(
                             child: const Text('새운동장만들기',
                             ),
@@ -53,7 +53,7 @@ class _Matchpage extends State<Matchpage> {
                           width: 500.w,
                         ),
                         SizedBox(
-                          height: 45,
+                          height: 45.h,
                           child: ElevatedButton(
                             child: const Text('저장'),
                             style: ButtonStyle(
@@ -71,14 +71,14 @@ class _Matchpage extends State<Matchpage> {
                         togglebutton(),
                       ],
                     ),
-                    const location(),
+                    location(),
 
-                    const SizedBox(
-                      height: 5,
+                    SizedBox(
+                      height: 5.h,
                     ),
-                    const Matchground(),
-                    const SizedBox(
-                      height: 5,
+                    Matchground(),
+                    SizedBox(
+                      height: 5.h,
                     ),
                     Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,11 +99,11 @@ class _Matchpage extends State<Matchpage> {
                               ],
                             )
                           ),
-                          const SizedBox(
-                            height: 5,
+                          SizedBox(
+                            height: 5.h,
                           ),
                           SizedBox(
-                            height: 40,
+                            height: 40.h,
                             child: const TextField(
                               maxLines: 5,
                               decoration: InputDecoration(
@@ -113,11 +113,11 @@ class _Matchpage extends State<Matchpage> {
                                   hintText: '오늘 잘한것'),
                             ),
                           ),
-                          const SizedBox(
-                            height: 5,
+                          SizedBox(
+                            height: 5.h,
                           ),
-                          const SizedBox(
-                            height: 40,
+                          SizedBox(
+                            height: 40.h,
                             child: TextField(
                               maxLines: 5,
                               decoration: InputDecoration(
@@ -127,8 +127,8 @@ class _Matchpage extends State<Matchpage> {
                                   hintText: '오늘 못한것'),
                             ),
                           ),
-                          const SizedBox(
-                            height: 40,
+                          SizedBox(
+                            height: 40.h,
                             child: TextField(
                               maxLines: 5,
                               decoration: InputDecoration(
@@ -145,7 +145,7 @@ class _Matchpage extends State<Matchpage> {
             ],
           ),
         ),
-        bottomNavigationBar: const BottomAppBar(),
+        bottomNavigationBar: BottomAppBar(),
     );
   }
 }
