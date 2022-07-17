@@ -12,20 +12,25 @@ class RestApi {
     'Access-Control-Request-Headers': '*',
   };
 
-  Future<void> SignUp(String email, String name, String phone, String avatar) async {
+  Future<void> SignUp(String email, String name, String phone, String avatar, String pwd) async {
     Map param = {
       "email": email,
       "avatar": avatar,
-      "name": name,
       "phone": phone,
+      "name": name,
+      "pwd" : pwd
     };
+
     final String encodedData = convertJson(param);
+
     final response = await http.post(
       Uri.parse(
           "https://q776bjvfe5.execute-api.ap-northeast-2.amazonaws.com/underplay/signup"),
       body: encodedData,
       headers: headers,
     );
+
+    print(response.body);
   }
 
   Future<UserData> getUser(String email, String pwd) async {
