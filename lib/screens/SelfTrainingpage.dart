@@ -56,7 +56,34 @@ class _SelfTrainingpageState extends State<SelfTrainingpage> {
                         ),
                       ),
                     ),
-
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    SizedBox(
+                      height: 175.h,
+                      child: TextField(
+                        minLines: 1,
+                        maxLines: 5,
+                        decoration: InputDecoration(
+                            isDense: true,
+                            border: OutlineInputBorder(),
+                            hintText: '오늘 잘한것'),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    SizedBox(
+                      height: 175.h,
+                      child: TextField(
+                        minLines: 1,
+                        maxLines: 5,
+                        decoration: InputDecoration(
+                            isDense: true,
+                            border: OutlineInputBorder(),
+                            hintText: '오늘 못한것'),
+                      ),
+                    ),
                   ]
               ),
             ]
