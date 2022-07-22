@@ -4,8 +4,6 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 import '../model/Meeting.dart';
 
 class MeetingDataSource extends CalendarDataSource {
-  /// Creates a meeting data source, which used to set the appointment
-  /// collection to the calendar
   MeetingDataSource(List<Meeting> source) {
     appointments = source;
   }
