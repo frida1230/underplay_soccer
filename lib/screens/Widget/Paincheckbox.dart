@@ -1,6 +1,8 @@
+
 import 'package:flutter/material.dart';
+import 'package:flutter_material_pickers/flutter_material_pickers.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:numberpicker/numberpicker.dart';
+
 
 
 class Paincheckbox extends StatefulWidget {
@@ -33,7 +35,7 @@ class _PaincheckboxState extends State<Paincheckbox> {
               }
           ),
           SizedBox(
-            height: 97.h,
+            height: 95.h,
             width: 325.w,
             child: TextField(
               readOnly: !_isChecked,
@@ -44,20 +46,34 @@ class _PaincheckboxState extends State<Paincheckbox> {
             ),
           ),
           SizedBox(
-            height: 97.h,
-            width: 325.w,
-            child: NumberPicker(
-              value: _currentValue,
-              textStyle: const TextStyle(color: Colors.green,fontSize: 15,),
-              axis: Axis.horizontal,
-              step: 1,
-              minValue: 1,
-              maxValue: 10,
-              onChanged: (value) => setState(() => _currentValue = value),
-
+            width: 15.w,
+          ),
+          SizedBox(
+            width: 300.w,
+            child: ElevatedButton(
+              child: const Text('통증 Lv'),
+              onPressed: () => showMaterialNumberPicker(
+                context: context,
+                title: '통증',
+                headerColor: Colors.green[600],
+                maxNumber: 10,
+                minNumber: 1,
+                step: 1,
+                confirmText: '확인',
+                cancelText: '취소',
+                selectedNumber: _currentValue,
+                onChanged: (value) => setState(() => _currentValue = value),
+              ),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.green[600],
+              ),
             ),
           ),
-          Text('통증정도 : $_currentValue'),
+          Expanded(
+            child: Text('통증 정도(Lv1~10): $_currentValue',
+              textAlign: TextAlign.center,
+            ),
+          ),
         ],
       ),
     );

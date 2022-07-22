@@ -6,7 +6,8 @@ import 'Widget/weathertoggle.dart';
 
 
 class SelfTrainingpage extends StatefulWidget {
-  const SelfTrainingpage({Key? key}) : super(key: key);
+  const SelfTrainingpage({Key? key, required this.title}) : super(key: key);
+  final String title;
 
   @override
   State<SelfTrainingpage> createState() => _SelfTrainingpageState();
@@ -18,6 +19,7 @@ class _SelfTrainingpageState extends State<SelfTrainingpage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green[600],
+        title: Text(widget.title),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -27,7 +29,7 @@ class _SelfTrainingpageState extends State<SelfTrainingpage> {
       ),
       body: SafeArea(
         child: ListView(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(30.r),
             children: [
               Column(
                   children: [
@@ -41,12 +43,12 @@ class _SelfTrainingpageState extends State<SelfTrainingpage> {
                     const location(),
 
                     SizedBox(
-                      height: 5.h,
+                      height: 15.h,
                     ),
                     Container(
-                      padding: const EdgeInsets.all(5),
-                      width: 375.w,
-                      height: 500.h,
+                      padding: EdgeInsets.all(15.r),
+                      width:1110.w,
+                      height: 1500.w,
                       decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage('image/footballplayground.png'),
@@ -54,7 +56,34 @@ class _SelfTrainingpageState extends State<SelfTrainingpage> {
                         ),
                       ),
                     ),
-
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    SizedBox(
+                      height: 175.h,
+                      child: TextField(
+                        minLines: 1,
+                        maxLines: 5,
+                        decoration: InputDecoration(
+                            isDense: true,
+                            border: OutlineInputBorder(),
+                            hintText: '오늘 잘한것'),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    SizedBox(
+                      height: 175.h,
+                      child: TextField(
+                        minLines: 1,
+                        maxLines: 5,
+                        decoration: InputDecoration(
+                            isDense: true,
+                            border: OutlineInputBorder(),
+                            hintText: '오늘 못한것'),
+                      ),
+                    ),
                   ]
               ),
             ]

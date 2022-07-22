@@ -9,8 +9,8 @@ import 'Widget/weathertoggle.dart';
 
 
 class Rehabpage extends StatefulWidget {
-  const Rehabpage({Key? key}) : super(key: key);
-
+  const Rehabpage({Key? key, required this.title}) : super(key: key);
+  final String title;
   @override
   _rehabpageState createState() => _rehabpageState();
 }
@@ -21,18 +21,21 @@ class _rehabpageState extends State<Rehabpage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green[600],
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+        title: Text(widget.title),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.save),
+            tooltip: "Save to all",
+            onPressed: () => (context),
           ),
-      ),
+        ]
+          ),
       body: SafeArea(
           child: ListView(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(10.r),
             children: [
               Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,14 +46,15 @@ class _rehabpageState extends State<Rehabpage> {
                     ),
                     const location(),
                     SizedBox(
-                      height: 5,
+                      height: 15.h,
                     ),
-                    Container(
-                      height: 200,
+                    SizedBox(
+                      height: 1100.h,
                       child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: const <Widget>[
+                            Text('해당 통증부위 체크박스 선택 후 통증레벨 클릭.'),
                             Paincheckbox(type: '목',),
                             Paincheckbox(type: '어깨',),
                             Paincheckbox(type: '팔',),
@@ -66,73 +70,79 @@ class _rehabpageState extends State<Rehabpage> {
                       ),
                     ),
 
-                    Container(
-                      height: 55,
-                      child: TextField(
-                        maxLines: 5,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: '훈련 프로그램 내용'
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Container(
-                      height: 55.h,
-                      child: TextField(
-                        maxLines: 5,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: '재활목표 내용'),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Container(
-                      height: 55,
-                      child: TextField(
-                        maxLines: 5,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: '재활심리 내용'),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Container(
-                      child: Row(
-                        children:[
-                          SizedBox(
-                            width: 270,
-                            height: 55,
-                            child: TextField(
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: '특이사항 내용'
-                              ),
+                    Column(
+                      children: [
+                        SizedBox(
+                          height: 175.h,
+                          child: TextField(
+                            keyboardType: TextInputType.multiline,
+                            textInputAction: TextInputAction.newline,
+                            minLines: 1,
+                            maxLines: 5,
+                            decoration: InputDecoration(
+                              isDense: true,
+                              border: OutlineInputBorder(),
+                              hintText: '훈련 프로그램 내용'
                             ),
                           ),
-                          Expanded(
-                              child: ElevatedButton(
-                                child: const Text('저장'),
-                                style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.green)
-                                ) ,
-                                onPressed: (){},
-                              ),
+                        ),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                        SizedBox(
+                          height: 175.h,
+                          child: TextField(
+                            keyboardType: TextInputType.multiline,
+                            textInputAction: TextInputAction.newline,
+                            minLines: 1,
+                            maxLines: 5,
+                            decoration: InputDecoration(
+                                isDense: true,
+                                border: OutlineInputBorder(),
+                                hintText: '재활목표 내용'),
                           ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                        SizedBox(
+                          height: 175.h,
+                          child: TextField(
+                            keyboardType: TextInputType.multiline,
+                            textInputAction: TextInputAction.newline,
+                            minLines: 1,
+                            maxLines: 5,
+                            decoration: InputDecoration(
+                                isDense: true,
+                                border: OutlineInputBorder(),
+                                hintText: '재활심리 내용'),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                        SizedBox(
+                          height: 175.h,
+                          child: TextField(
+                            keyboardType: TextInputType.multiline,
+                            textInputAction: TextInputAction.newline,
+                            minLines: 1,
+                            maxLines: 5,
+                            decoration: InputDecoration(
+                                isDense: true,
+                                border: OutlineInputBorder(),
+                                hintText: '특이사항 내용'
+                            ),
+                          ),
+                        ),
+                      ]
                     ),
-                ]
+                  ],
               ),
-            ],
+
+            ]
           ),
-        ),
+      ),
 
       bottomNavigationBar: const BottomAppBar(),
     );

@@ -33,31 +33,31 @@ class _DrawTacticspage extends State<DrawTacticspage> {
         )]
       ),
       body: SingleChildScrollView(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height * 2,
+        child: Container(
+            height: MediaQuery.of(context).size.height * 2,
           child: Stack(
-            children: [
-              Scribble(
-                notifier: notifier,
-                drawPen: true,
-              ),
-              Positioned(
-                top: 16,
-                right: 16,
-                child: Column(
-                  children: [
-                    _buildColorToolbar(context),
-                    const Divider(
-                      height: 32,
-                    ),
-                    _buildStrokeToolbar(context),
-                  ],
+              children: [
+                Scribble(
+                  notifier: notifier,
+                  drawPen: true,
                 ),
-              )
-            ],
-          ),
-        ),
-      ),
+                Positioned(
+                  top: 16,
+                  right: 16,
+                  child: Column(
+                    children: [
+                      _buildColorToolbar(context),
+                      const Divider(
+                        height: 32,
+                      ),
+                      _buildStrokeToolbar(context),
+                    ],
+                  ),
+                ),
+              ],
+
+          ),),
+    ),
     );
   }
 

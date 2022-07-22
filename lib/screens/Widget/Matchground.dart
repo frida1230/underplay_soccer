@@ -9,7 +9,7 @@ class Matchground extends StatelessWidget {
     return Container(
       padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
       width:1110.w,
-      height: 1650.h,
+      height: 1500.w,
       decoration: const BoxDecoration(
         image: DecorationImage(
           image:AssetImage('image/MatchField.png'),
@@ -42,7 +42,7 @@ class Matchground extends StatelessWidget {
                   ),
                   SizedBox(
                     width: 400.w,
-                    height: 40.h,
+                    height: 40.w,
                   ),
                   SizedBox(
                     width: 380.w,
@@ -66,7 +66,7 @@ class Matchground extends StatelessWidget {
                 ]
             ),
             SizedBox(
-              width: 375.w,
+              width: 375.h,
               height: 1320.h,
             ),
             Row(
