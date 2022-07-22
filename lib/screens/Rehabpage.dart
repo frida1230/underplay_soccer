@@ -54,6 +54,7 @@ class _rehabpageState extends State<Rehabpage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: const <Widget>[
+                            Text('해당 통증부위 체크박스 선택 후 통증레벨 클릭.'),
                             Paincheckbox(type: '목',),
                             Paincheckbox(type: '어깨',),
                             Paincheckbox(type: '팔',),

@@ -51,7 +51,7 @@ class _PaincheckboxState extends State<Paincheckbox> {
           SizedBox(
             width: 300.w,
             child: ElevatedButton(
-              child: const Text('통증 레벨'),
+              child: const Text('통증 Lv'),
               onPressed: () => showMaterialNumberPicker(
                 context: context,
                 title: '통증',
@@ -70,8 +70,8 @@ class _PaincheckboxState extends State<Paincheckbox> {
             ),
           ),
           Expanded(
-            child: Text('통증정도 : $_currentValue',
-              textAlign: TextAlign.right,
+            child: Text('통증 정도(Lv1~10): $_currentValue',
+              textAlign: TextAlign.center,
             ),
           ),
         ],
