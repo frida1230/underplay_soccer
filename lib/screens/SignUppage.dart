@@ -3,7 +3,7 @@ import 'package:soccer/screens/Loginpage.dart';
 import 'package:soccer/screens/Widget/CustomAppbar.dart';
 
 import '../RestApi.dart';
-import 'Widget/LoginTF.dart';
+import 'Widget/CustomTF.dart';
 
 class SignupPage extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
@@ -48,10 +48,10 @@ class SignupPage extends StatelessWidget {
                       ),
                       child: Column(
                         children: [
-                          LoginTF(label: "Email", tfcontroller: emailController),
-                          LoginTF(label: "Password", obsureText: true, tfcontroller: passwordController),
-                          LoginTF(label: "phone", tfcontroller: phoneController),
-                          LoginTF(label: "name", tfcontroller: nameController)
+                          CustomTF(label: "Email", tfcontroller: emailController),
+                          CustomTF(label: "Password", obsureText: true, tfcontroller: passwordController),
+                          CustomTF(label: "phone", tfcontroller: phoneController),
+                          CustomTF(label: "name", tfcontroller: nameController)
                         ],
                       ),
                     ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget LoginTF({label,obsureText = false, tfcontroller}){
+Widget CustomTF({label,obsureText = false, tfcontroller}){
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
