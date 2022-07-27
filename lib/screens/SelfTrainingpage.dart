@@ -20,16 +20,20 @@ class _SelfTrainingpageState extends State<SelfTrainingpage> {
       appBar: AppBar(
         backgroundColor: Colors.green[600],
         title: Text(widget.title),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.save),
+              tooltip: "Save to all",
+              onPressed: () => (context),
+            ),],
+        leading:
+        IconButton( onPressed: (){
+          Navigator.pop(context);
+        },icon:Icon(Icons.arrow_back_ios,size: 20,color: Colors.white,)),
       ),
       body: SafeArea(
         child: ListView(
-          padding: EdgeInsets.all(30.r),
+          padding: EdgeInsets.all(20.r),
             children: [
               Column(
                   children: [

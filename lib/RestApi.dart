@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import "package:http/http.dart" as http;
+import 'model/Meeting.dart';
 import 'model/User.dart';
 
 class RestApi {
@@ -61,9 +63,73 @@ class RestApi {
     return ud;
   }
 
+  Future<void> SetEvent(String email, String subject, String stime, String etime, bool isallday, String Color) async {
+    Map param = {
+      "email": email,
+      "eventname": subject,
+      "stime": stime,
+      "etime": etime,
+      "isallday" : isallday,
+      "bg" : Color
+    };
+
+    final String encodedData = convertJson(param);
+
+    final response = await http.post(
+      Uri.parse(
+          "https://q776bjvfe5.execute-api.ap-northeast-2.amazonaws.com/underplay/setevent"),
+      body: encodedData,
+    );
+
+    print(response.body);
+  }
+
+  Future<List<Meeting>> getEvents(String email) async {
+    Map param = {
+      "email": email
+    };
+
+    final String encodedData = convertJson(param);
+
+    final response = await http.post(
+      Uri.parse(
+          "https://q776bjvfe5.execute-api.ap-northeast-2.amazonaws.com/underplay/getevents"),
+      body: encodedData,
+      headers: headers,
+    );
+
+    var parsed = jsonDecode(response.body);
+
+    final List<Meeting> loadedevents = [];
+
+    parsed.forEach((eventData) {
+      loadedevents.add(Meeting(
+        eventName: eventData['eventname'],
+        from: DateTime.parse(eventData['stime']),
+        to: DateTime.parse(eventData['etime']),
+        background: HexColor(eventData['bg']),
+        isAllDay: eventData['isallday'] == 0 ? false : true,
+      ));
+    });
+
+    return loadedevents;
+  }
+
   dynamic convertJson(dynamic param) {
     const JsonEncoder encoder = JsonEncoder();
     final dynamic object = encoder.convert(param);
     return object;
   }
+}
+
+class HexColor extends Color {
+  static int _getColorFromHex(String hexColor) {
+    hexColor = hexColor.toUpperCase().replaceAll("#", "");
+    if (hexColor.length == 6) {
+      hexColor = "FF" + hexColor;
+    }
+    return int.parse(hexColor, radix: 16);
+  }
+
+  HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 }
