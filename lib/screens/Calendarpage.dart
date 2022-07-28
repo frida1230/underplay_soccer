@@ -2,10 +2,12 @@ import 'dart:math';
 
 import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:soccer/RestApi.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
+import 'package:syncfusion_localizations/syncfusion_localizations.dart';
 
 import '../model/Meeting.dart';
 import '../model/User.dart';
@@ -87,7 +89,13 @@ class _CalendarPageState extends State<CalendarPage> {
                             mode: DateTimeFieldPickerMode.time,
                             autovalidateMode: AutovalidateMode.always,
                             onDateSelected: (DateTime value) {
-                              stime = value.toString();
+                              String temp = DateFormat('yyyy-MM-dd')
+                                  .format(calendarLongPressDetails.date!)
+                                  .toString();
+                              String temp2 = DateFormat('HH:mm:ss')
+                                  .format(value)
+                                  .toString();
+                              stime = temp + " " + temp2;
                             },
                           ),
                         ),
@@ -119,7 +127,13 @@ class _CalendarPageState extends State<CalendarPage> {
                             mode: DateTimeFieldPickerMode.time,
                             autovalidateMode: AutovalidateMode.always,
                             onDateSelected: (DateTime value) {
-                              etime = value.toString();
+                              String temp = DateFormat('yyyy-MM-dd')
+                                  .format(calendarLongPressDetails.date!)
+                                  .toString();
+                              String temp2 = DateFormat('HH:mm:ss')
+                                  .format(value)
+                                  .toString();
+                              etime = temp + " " + temp2;
                             },
                           ),
                         ),
@@ -177,24 +191,38 @@ class _CalendarPageState extends State<CalendarPage> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.green[600],
-          title: Text("Calendar"),
-          leading:
-          IconButton( onPressed: (){
-            Navigator.pop(context);
-          },icon:Icon(Icons.arrow_back_ios,size: 20,color: Colors.white,)),
-        ),
-        body: _isLoading ? const Center(child: CircularProgressIndicator()) : SfCalendar(
-          view: CalendarView.month,
-          dataSource: MeetingDataSource(events),
-          monthViewSettings: const MonthViewSettings(
-              appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
-          onViewChanged: (ViewChangedDetails details) {
-            List<DateTime> dates = details.visibleDates;
-          },
-          onLongPress: longPressed,
-        ));
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          SfGlobalLocalizations.delegate
+        ],
+        supportedLocales: const [
+          const Locale('en'),
+          const Locale('ko'),
+        ],
+        locale: Locale('ko', 'KR'),
+        home: Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.green[600],
+              title: Text("Calendar"),
+              leading:
+              IconButton( onPressed: (){
+                Navigator.pop(context);
+              },icon:Icon(Icons.arrow_back_ios,size: 20,color: Colors.white,)),
+            ),
+            body: _isLoading ? const Center(child: CircularProgressIndicator()) : SfCalendar(
+              view: CalendarView.month,
+              dataSource: MeetingDataSource(events),
+              monthViewSettings: const MonthViewSettings(
+                  appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
+              onViewChanged: (ViewChangedDetails details) {
+                List<DateTime> dates = details.visibleDates;
+              },
+              onLongPress: longPressed,
+            ))
+    );
   }
 }
