@@ -80,8 +80,6 @@ class RestApi {
           "https://q776bjvfe5.execute-api.ap-northeast-2.amazonaws.com/underplay/setevent"),
       body: encodedData,
     );
-
-    print(response.body);
   }
 
   Future<List<Meeting>> getEvents(String email) async {
@@ -97,8 +95,8 @@ class RestApi {
       body: encodedData,
       headers: headers,
     );
-
-    var parsed = jsonDecode(response.body);
+    var parsed = jsonDecode(utf8.decode(response.bodyBytes));
+    //var parsed = jsonDecode(response.body); //한글 깨짐 현상 발생
 
     final List<Meeting> loadedevents = [];
 

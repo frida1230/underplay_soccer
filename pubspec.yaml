@@ -13,9 +13,6 @@ dependencies:
   scribble: ^0.4.0
   flutter:
     sdk: flutter
-  syncfusion_localizations: ^20.2.40
-  flutter_localizations: # Add this line
-    sdk: flutter         # Add this line
   cupertino_icons: ^1.0.2
   webview_flutter: ^3.0.4
   http: ^0.13.4

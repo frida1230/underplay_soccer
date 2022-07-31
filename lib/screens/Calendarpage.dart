@@ -2,17 +2,15 @@ import 'dart:math';
 
 import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:soccer/RestApi.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
-import 'package:syncfusion_localizations/syncfusion_localizations.dart';
-
 import '../model/Meeting.dart';
 import '../model/User.dart';
 import '../provider/meeting_data.dart';
 import 'Widget/CustomTF.dart';
+import 'Widget/calendarList.dart';
 
 class CalendarPage extends StatefulWidget {
   CalendarPage({Key? key, required this.ud}) : super(key: key);
@@ -28,6 +26,7 @@ class _CalendarPageState extends State<CalendarPage> {
   String etime = '';
   var _isChecked = false;
   var _saving = false;
+  var _warnning = false;
   bool _isInit = true;
   bool _isLoading = false;
   late List<Meeting> events;
@@ -48,7 +47,36 @@ class _CalendarPageState extends State<CalendarPage> {
     _isInit = false;
     super.didChangeDependencies();
   }
-
+  void onTaped(CalendarTapDetails details){
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return AlertDialog(
+                title: Container(child: Text(DateFormat('dd MMM')
+                    .format(details.date!)
+                    .toString() + " 일정 내용")),
+                content: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: FutureBuilder<List<Meeting>>(
+                    future: RestApi().getEvents(widget.ud.email),
+                    builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                    return MeetList(
+                      day: DateFormat('yyyy-MM-dd')
+                          .format(details.date!)
+                          .toString(),
+                      meetList: snapshot.data as List<Meeting>,
+                    );
+                    }
+                    return CircularProgressIndicator();})
+                )
+              );
+            }
+        );
+      });
+  }
   void longPressed(CalendarLongPressDetails calendarLongPressDetails) {
     showDialog(
         context: context,
@@ -56,13 +84,17 @@ class _CalendarPageState extends State<CalendarPage> {
     {
       return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
+            stime = DateFormat('yyyy-MM-dd')
+                .format(calendarLongPressDetails.date!)
+                .toString();
+            etime = stime;
             return AlertDialog(
               title: Container(child: new Text(DateFormat('dd MMM')
                   .format(calendarLongPressDetails.date!)
-                  .toString() + ", Add Event")),
+                  .toString() + ", 일정 등록")),
               content: Column(
                 children: [
-                  CustomTF(label: "Subject", tfcontroller: eventNameController),
+                  CustomTF(label: "일정제목", tfcontroller: eventNameController),
                   _isChecked ? SizedBox() : Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -163,22 +195,41 @@ class _CalendarPageState extends State<CalendarPage> {
                     backgroundColor: Colors.transparent,
                     color: Colors.blue,
                   ) : SizedBox(),
+                  _warnning ? Text("시간을 선택해주세요!", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),) : SizedBox(),
                 ],
               ),
               actions: <Widget>[
                 FlatButton(onPressed: () async {
-                  setState(() {
-                    _saving = true;
-                  });
-                  if(_isChecked){
-                    stime = DateFormat('yyyy-MM-dd')
+                  if(_isChecked == false){
+                    if(stime == DateFormat('yyyy-MM-dd')
                         .format(calendarLongPressDetails.date!)
-                        .toString();
-                    etime = stime;
+                        .toString() || etime  == DateFormat('yyyy-MM-dd')
+                        .format(calendarLongPressDetails.date!)
+                        .toString()){
+                      setState(() {
+                        _saving = false;
+                        _warnning = true;
+                      });
+                    }
+                    else{
+                      setState(() {
+                        _saving = true;
+                        _warnning = false;
+                      });
+                      Color _randomColor = Colors.primaries[Random().nextInt(Colors.primaries.length)];
+                      await RestApi().SetEvent(widget.ud.email, eventNameController.text, stime, etime, _isChecked, _randomColor.value.toString());
+                      Navigator.of(context).pop();
+                    }
                   }
-                  Color _randomColor = Colors.primaries[Random().nextInt(Colors.primaries.length)];
-                  await RestApi().SetEvent(widget.ud.email, eventNameController.text, stime, etime, _isChecked, _randomColor.value.toString());
-                  Navigator.of(context).pop();
+                  else{
+                    setState(() {
+                      _saving = true;
+                      _warnning = false;
+                    });
+                    Color _randomColor = Colors.primaries[Random().nextInt(Colors.primaries.length)];
+                    await RestApi().SetEvent(widget.ud.email, eventNameController.text, stime, etime, _isChecked, _randomColor.value.toString());
+                    Navigator.of(context).pop();
+                  }
                 }, child: Text('저장')),
                 FlatButton(onPressed: () {
                   Navigator.of(context).pop();
@@ -191,38 +242,26 @@ class _CalendarPageState extends State<CalendarPage> {
   }
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        localizationsDelegates: [
-          GlobalMaterialLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          SfGlobalLocalizations.delegate
-        ],
-        supportedLocales: const [
-          const Locale('en'),
-          const Locale('ko'),
-        ],
-        locale: Locale('ko', 'KR'),
-        home: Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.green[600],
-              title: Text("Calendar"),
-              leading:
-              IconButton( onPressed: (){
-                Navigator.pop(context);
-              },icon:Icon(Icons.arrow_back_ios,size: 20,color: Colors.white,)),
-            ),
-            body: _isLoading ? const Center(child: CircularProgressIndicator()) : SfCalendar(
-              view: CalendarView.month,
-              dataSource: MeetingDataSource(events),
-              monthViewSettings: const MonthViewSettings(
-                  appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
-              onViewChanged: (ViewChangedDetails details) {
-                List<DateTime> dates = details.visibleDates;
-              },
-              onLongPress: longPressed,
-            ))
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.green[600],
+        title: Text("달력"),
+        leading:
+        IconButton( onPressed: (){
+          Navigator.pop(context);
+        },icon:Icon(Icons.arrow_back_ios,size: 20,color: Colors.white,)),
+      ),
+      body: _isLoading ? const Center(child: CircularProgressIndicator()) : SfCalendar(
+        view: CalendarView.month,
+        dataSource: MeetingDataSource(events),
+        monthViewSettings: const MonthViewSettings(
+            appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
+        onViewChanged: (ViewChangedDetails details) {
+          List<DateTime> dates = details.visibleDates;
+        },
+        onTap: onTaped,
+        onLongPress: longPressed,
+      )
     );
   }
 }
