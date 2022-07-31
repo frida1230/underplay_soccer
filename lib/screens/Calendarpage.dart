@@ -27,24 +27,21 @@ class _CalendarPageState extends State<CalendarPage> {
   var _isChecked = false;
   var _saving = false;
   var _warnning = false;
-  bool _isInit = true;
   bool _isLoading = false;
   late List<Meeting> events;
 
   @override
   void didChangeDependencies() {
-    if (_isInit) {
+    print("didc");
+    setState(() {
+      _isLoading = true;
+    });
+    RestApi().getEvents(widget.ud.email).then((value) =>
       setState(() {
-        _isLoading = true;
-      });
-      RestApi().getEvents(widget.ud.email).then((value) =>
-        setState(() {
-          events = value;
-          _isLoading = false;
-        })
-      );
-    }
-    _isInit = false;
+        events = value;
+        _isLoading = false;
+      })
+    );
     super.didChangeDependencies();
   }
   void onTaped(CalendarTapDetails details){
@@ -77,8 +74,8 @@ class _CalendarPageState extends State<CalendarPage> {
         );
       });
   }
-  void longPressed(CalendarLongPressDetails calendarLongPressDetails) {
-    showDialog(
+  Future<void> longPressed(CalendarLongPressDetails calendarLongPressDetails) async {
+    await showDialog(
         context: context,
         builder: (BuildContext context)
     {
@@ -218,7 +215,13 @@ class _CalendarPageState extends State<CalendarPage> {
                       });
                       Color _randomColor = Colors.primaries[Random().nextInt(Colors.primaries.length)];
                       await RestApi().SetEvent(widget.ud.email, eventNameController.text, stime, etime, _isChecked, _randomColor.value.toString());
-                      Navigator.of(context).pop();
+                      Navigator.pop(context, true);
+                      _saving = false;
+                      _warnning = false;
+                      stime = "";
+                      etime = "";
+                      _isChecked = false;
+                      eventNameController.text = "";
                     }
                   }
                   else{
@@ -228,11 +231,23 @@ class _CalendarPageState extends State<CalendarPage> {
                     });
                     Color _randomColor = Colors.primaries[Random().nextInt(Colors.primaries.length)];
                     await RestApi().SetEvent(widget.ud.email, eventNameController.text, stime, etime, _isChecked, _randomColor.value.toString());
-                    Navigator.of(context).pop();
+                    Navigator.pop(context, true);
+                    _saving = false;
+                    _warnning = false;
+                    stime = "";
+                    etime = "";
+                    _isChecked = false;
+                    eventNameController.text = "";
                   }
                 }, child: Text('저장')),
                 FlatButton(onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.pop(context, true);
+                  _saving = false;
+                  _warnning = false;
+                  stime = "";
+                  etime = "";
+                  _isChecked = false;
+                  eventNameController.text = "";
                 }, child: Text('취소'))
               ],
             );
@@ -260,7 +275,17 @@ class _CalendarPageState extends State<CalendarPage> {
           List<DateTime> dates = details.visibleDates;
         },
         onTap: onTaped,
-        onLongPress: longPressed,
+        onLongPress: (CalendarDetails) async {
+          print("1");
+          await longPressed(CalendarDetails);
+          print("2");
+          await RestApi().getEvents(widget.ud.email).then((value) =>
+              setState(() {
+                events = value;
+              })
+          );
+        }
+
       )
     );
   }
