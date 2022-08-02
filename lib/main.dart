@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
             MaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'UnderPlay App',
+              locale: const Locale('ko'),
               theme: ThemeData(
                 primarySwatch: Colors.blue,
               ),

@@ -42,7 +42,7 @@ class _Matchpage extends State<Matchpage> {
         ),
         body: SafeArea(
           child: ListView(
-            padding: EdgeInsets.all(30.r),
+            padding: EdgeInsets.all(20.r),
             children: [
               Column(
                   children: [
@@ -57,11 +57,11 @@ class _Matchpage extends State<Matchpage> {
                     location(),
 
                     SizedBox(
-                      height: 15.h,
+                      height: 10.h,
                     ),
                     Matchground(),
                     SizedBox(
-                      height: 15.h,
+                      height: 10.h,
                     ),
                     Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

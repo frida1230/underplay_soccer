@@ -67,7 +67,7 @@ class Matchground extends StatelessWidget {
             ),
             SizedBox(
               width: 375.h,
-              height: 1320.h,
+              height: 1100.h,
             ),
             Row(
                 children: [
